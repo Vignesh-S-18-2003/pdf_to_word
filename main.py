@@ -8,7 +8,6 @@ from tkinter import _tkinter
 UPLOADER_FOLDER=''
 app=Flask(__name__)
 app.config['UPLOADER_FOLDER']=UPLOADER_FOLDER
-
 @app.route('/')
 @app.route('/index',methods=['GET','POST'])
 def index():
@@ -16,12 +15,10 @@ def index():
         def convert_pdf2docx(input_file:str,output_file:str,pages:Tuple=None):
            if pages:
                pages = [int(i) for i in list(pages) if i.isnumeric()]
-
            result = parse(pdf_file=input_file,docx_with_path=output_file, pages=pages)
            summary = {
                "File": input_file, "Pages": str(pages), "Output File": output_file
             }
-
            print("\n".join("{}:{}".format(i, j) for i, j in summary.items()))
            return result
         file=request.files['filename']
@@ -35,8 +32,6 @@ def index():
            lis=doc.replace(" ","=")
            return render_template("docx.html",variable=lis)
     return render_template("index.html")
-
-
 @app.route('/docx',methods=['GET','POST'])
 def docx():
     if request.method=="POST":
